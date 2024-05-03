@@ -1,0 +1,69 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  namespace: default
+  name: wfazureprovision
+  title: Provision resources in Azure
+  description: Creates a new VM, reosurce group, subnet, network interface, and virtual network within Azure
+  tags:
+    - azure
+    - wfdemo
+spec:
+  owner: cassie.souza@harness.io
+  type: environment
+  parameters:
+    - title: Project and Repo Details
+      required:
+        - owner
+      properties:
+        owner:
+          title: Choose the Owner
+          type: string
+          ui:field: OwnerPicker
+          ui:options: null
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
+    - title: Infrastructure Details
+      properties:
+        workspace:
+          title: Choose which Workspace to use
+          type: string
+          enum:
+            - Azure_Demo
+            - Demo
+        instance_type:
+          title: Choose the Instance Type
+          type: string
+          enum:
+            - Standard_B1ls
+            - Standard_B2s
+            - Standard_D2s_v3
+          default: Standard_B1ls
+        vnet:
+          title: Choose desired virtual network
+          type: string
+          enum:
+            - aks-vnet-16995446
+            - wfdemo-vnet
+            - restricted-vnet
+          default: aks-vnet-16995446
+        count:
+          title: Choose desired instance count (i.e. How many VMs?)
+          type: string
+          default: "1"
+  steps:
+    - id: trigger
+      name: Provisioning your Infrastructure
+      action: trigger:harness-custom-pipeline
+      input:
+        url: https://app.harness.io/ng/account/6_vVHzo9Qeu9fXvj-AcbCQ/iacm/orgs/SE_Sandbox/projects/Cassie_Sandbox/pipelines/Dynamic_Workspace/pipeline-studio/?storeType=INLINE
+        inputset:
+          workspace: ${{ parameters.workspace }}
+        apikey: ${{ parameters.token }}
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}

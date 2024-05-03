@@ -1,0 +1,40 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  namespace: default
+  name: wfazuredestroy
+  title: Destroy resources in Azure
+  description: Destroys VM, reosurce group, subnet, network interface, and virtual network within Azure
+  tags:
+    - azure
+    - wfdemo
+spec:
+  owner: cassie.souza@harness.io
+  type: environment
+  parameters:
+    - title: Project and Repo Details
+      required:
+        - workspace
+      properties:
+        workspace:
+          title: Input workspace name
+          type: string
+          description: IaCM workspace to destroy resources
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
+  steps:
+    - id: trigger
+      name: De-provisioning your Infrastructure
+      action: trigger:harness-custom-pipeline
+      input:
+        url: https://app.harness.io/ng/account/6_vVHzo9Qeu9fXvj-AcbCQ/iacm/orgs/SE_Sandbox/projects/Cassie_Sandbox/pipelines/Azure_Destroy_Resources/pipeline-studio/?storeType=INLINE
+        inputset:
+          workspace: ${{ parameters.workspace }}
+        apikey: ${{ parameters.token }}
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}

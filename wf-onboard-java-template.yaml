@@ -1,0 +1,62 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  namespace: default
+  name: wfonboardjava
+  title: Onboard Java Application
+  description: Creates new GH Repo and Harness project, registers app as a service and creates an end to end pipeline
+  tags:
+    - java
+    - wfdemo
+spec:
+  owner: cassie.souza@harness.io
+  type: service
+  parameters:
+    - title: Project Onboarding Details
+      required:
+        - projectName
+      properties:
+        projectName:
+          title: Provide a project name to onboard
+          type: string
+          description: unique project name
+    - title: Service and Infrastructure Details
+      required:
+        - owner
+        - dependsOn
+      properties:
+        dependsOn:
+          title: What entity does this service depend on?
+          type: string
+          ui:field: EntityPicker
+          ui:options:
+            catalogFilter:
+              - kind: Component
+                spec.type: Service
+        owner:
+          title: Choose an Owner for the Service
+          type: string
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
+  steps:
+    - id: trigger
+      name: Creating Repos and Onboarding your Application
+      action: trigger:harness-custom-pipeline
+      input:
+        url: https://app.harness.io/ng/account/6_vVHzo9Qeu9fXvj-AcbCQ/home/orgs/SE_Sandbox/projects/Cassie_Sandbox/pipelines/Onboard_New_Python_App_WF/pipeline-studio/?storeType=INLINE
+        inputset:
+          projectName: ${{ parameters.projectName }}
+          dependsOn: ${{ parameters.dependsOn }}
+          owner: ${{ parameters.owner }}
+        apikey: ${{ parameters.token }}
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}

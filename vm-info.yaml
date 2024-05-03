@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: wfdemo-virtual_machine
+  description: Server created as a dependecy of the Java application - wfdemo
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: virtual-machine
+  owner: Field_Engineering
+  system: Platform_Demo
+  lifecycle: experimental
