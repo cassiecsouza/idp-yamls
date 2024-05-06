@@ -1,11 +1,11 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: test
-  description: test
+  name: null
+  description: Catalog component created for the demo
   annotations:
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service
-  owner: null
+  owner: <ownername>
   lifecycle: experimental
