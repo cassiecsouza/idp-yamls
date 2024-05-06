@@ -1,8 +1,8 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: null
-  description: null
+  name: test
+  description: test
   annotations:
     backstage.io/techdocs-ref: dir:.
 spec:
