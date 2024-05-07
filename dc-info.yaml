@@ -1,0 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: VM6789
+  description: Infra component created for the demo
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+  links:
+    - url: https://wf-snow.com
+      title: SNOW Request
+      icon: help
+    - url: https://wf-vmware.com
+      title: Provisioned VM
+      icon: web
+  tags:
+    - iaas
+    - vminaday
+spec:
+  type: infrastructure
+  owner: Global_SE
+  system: VMWARE
+  lifecycle: experimental
