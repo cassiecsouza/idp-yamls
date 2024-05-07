@@ -17,6 +17,6 @@ metadata:
     - vminaday
 spec:
   type: infrastructure
-  owner: Gloabl_SE
+  owner: Global_SE
   system: VMWARE
   lifecycle: experimental
