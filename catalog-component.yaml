@@ -1,11 +1,11 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: test
-  description: Catalog component created for the demo
+  name: VM12345
+  description: Infra component created for the demo
   annotations:
     backstage.io/techdocs-ref: dir:.
 spec:
-  type: service
+  type: infrastructure
   owner: test
   lifecycle: experimental
