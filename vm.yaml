@@ -1,22 +1,22 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: VM6789
-  description: Infrastructure component with custom metadata
+  name: portal
+  description: Website component with custom metadata
   annotations:
     backstage.io/techdocs-ref: dir:.
   links:
     - url: https://wf-snow.com
-      title: SNOW Request
-      icon: help
+      title: Dev Website
+      icon: web
     - url: https://wf-vmware.com
-      title: Provisioned VM
+      title: QA Website
       icon: web
   tags:
-    - iaas
-    - vminaday
+    - portal
+    - frontend
 spec:
-  type: infrastructure
+  type: website
   owner: Global_SE
   system: VMWARE
   lifecycle: experimental
