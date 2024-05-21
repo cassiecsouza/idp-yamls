@@ -17,6 +17,6 @@ metadata:
     - frontend
 spec:
   type: website
-  owner: Global_SE
+  owner: cassie.souza@harness.io
   system: VMWARE
   lifecycle: experimental
