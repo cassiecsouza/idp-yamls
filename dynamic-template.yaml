@@ -43,18 +43,18 @@ spec:
             dependencies:
               - appID
             ui:conditional:
-              if: "{{ parameters.appID == '123' }} || parameters.appID == '112233' }}" 
+              if: "{{ parameters.appID == 'tag1' }} || parameters.appID == 'tag3' }}" 
               then:
                 enum:
                   - jenkins1
-                  - jenkins2
-                  - jenkins3
-              if: "{{ parameters.appID == '456' }}" 
+                  - jenkins13
+                  - jenkins1133
+              if: "{{ parameters.appID == 'tag2' }}" 
               then:
                 enum:
-                  - jenkins4
-                  - jenkins5
-                  - jenkins6
+                  - jenkins2
+                  - jenkins22
+                  - jenkins222
         token:
           title: Harness Token
           type: string
