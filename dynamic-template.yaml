@@ -23,10 +23,21 @@ spec:
             ui:field: EntityFieldPicker
             ui:displayField: metadata.appID
             ui:options:
-            catalogFilter:
-                kind: 
-                - Component
-                - Service
+              catalogFilter:
+                  kind: Component
+                    spec:
+                      type: service
+    - name: Only development environments
+      if: ${{ parameters.environment === "staging" and parameters.environment === "development" }}
+      action: debug:log
+      input:
+        message: 'development step'
+    
+    - name: Only production environments
+      if: ${{ parameters.environment === "prod" or parameters.environment === "production" }}
+      action: debug:log
+      input:
+        message: 'production step'                
         token:
           title: Harness Token
           type: string
