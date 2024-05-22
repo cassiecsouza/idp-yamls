@@ -43,7 +43,7 @@ spec:
             dependencies:
               - appID
             ui:conditional:
-              - if: "{{ parameters.appID == 'tag1' }} || parameters.appID == 'tag3' }}" 
+              - if: "{{ parameters.appID == 'tag1' }}" 
                 then:
                   enum:
                     - jenkins1
