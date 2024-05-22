@@ -16,27 +16,45 @@ spec:
       required:
         - owner
       properties:
+        projectName:
+            title: Input Project Name
+            type: string
+            description: New project to onboard   
         appID:
             title: Choose Application ID
             type: string
-            description: Team Lead the owner of this service
+            description: Application ID for this service request
             ui:field: EntityFieldPicker
             ui:displayField: metadata.appID
             ui:options:
               catalogFilter:
                 - kind: Component
                   spec.type: website
-    - name: Only development environments
-      if: ${{ parameters.environment === "staging" and parameters.environment === "development" }}
-      action: debug:log
-      input:
-        message: 'development step'
-    
-    - name: Only production environments
-      if: ${{ parameters.environment === "prod" or parameters.environment === "production" }}
-      action: debug:log
-      input:
-        message: 'production step'                
+        jenkinsInstance:
+            title: Choose a Jenkins Instance
+            type: string
+            description: Jenkins Instance to orchestrate the project onboarding
+            ui:field: EntityFieldPicker
+            ui:displayField: metadata.jenkinsInstance
+            ui:options:
+              catalogFilter:
+                - kind: Component
+                  spec.type: website
+            dependencies:
+              - appID
+            ui:conditional:
+              if: "{{ parameters.appID == '123' }} || parameters.appID == '112233' }}" 
+              then:
+                enum:
+                  - jenkins1
+                  - jenkins2
+                  - jenkins3
+              if: "{{ parameters.appID == '456' }}" 
+              then:
+                enum:
+                  - jenkins4
+                  - jenkins5
+                  - jenkins6
         token:
           title: Harness Token
           type: string
