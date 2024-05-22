@@ -24,9 +24,8 @@ spec:
             ui:displayField: metadata.appID
             ui:options:
               catalogFilter:
-                  kind: Component
-                  spec:
-                    type: service
+                - kind: Component
+                  spec.type: website
     - name: Only development environments
       if: ${{ parameters.environment === "staging" and parameters.environment === "development" }}
       action: debug:log
