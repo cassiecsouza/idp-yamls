@@ -1,0 +1,47 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  namespace: default
+  name: dynamicuifields
+  title: Dynamic UI Fields
+  description: Test out dynamic UI fields form catalog metadata
+  tags:
+    - dynamic
+    - catalogmetadata
+spec:
+  owner: cassie.souza@harness.io
+  type: environment
+  parameters:
+    - title: Project and Repo Details
+      required:
+        - owner
+      properties:
+        appID:
+            title: Choose Application ID
+            type: string
+            description: Team Lead the owner of this service
+            ui:field: EntityFieldPicker
+            ui:displayField: metadata.appID
+            ui:options:
+            catalogFilter:
+                kind: 
+                - Component
+                - Service
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
+  steps:
+    - id: trigger
+      name: Provisioning your Infrastructure
+      action: trigger:harness-custom-pipeline
+      input:
+        url: https://app.harness.io/ng/account/6_vVHzo9Qeu9fXvj-AcbCQ/home/orgs/SE_Sandbox/projects/Cassie_Sandbox/pipelines/Dynamic_Form_Inputs/pipeline-studio/?storeType=INLINE
+        inputset:
+          appID: ${{ parameters.appID }}
+        apikey: ${{ parameters.token }}
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}
