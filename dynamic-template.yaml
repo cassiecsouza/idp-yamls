@@ -12,14 +12,10 @@ spec:
   owner: cassie.souza@harness.io
   type: environment
   parameters:
-  - title: Project and Repo Details
-    properties:
-      projectName:
-          title: Input Project Name
-          type: string
-          description: New project to onboard   
-      appID:
-          title: Choose Application ID
+    - title: Fill in some steps
+      properties:
+        appID:
+          title: Application ID
           type: string
           description: Application ID for this service request
           ui:field: EntityFieldPicker
@@ -27,7 +23,9 @@ spec:
           ui:options:
             catalogFilter:
               - kind: Component
-                spec.type: website
+                spec.type: website        
+      dependencies:
+        appID:
           allOf:
             - if:
                 properties:
@@ -35,13 +33,12 @@ spec:
                     const: tag1
               then:
                 properties:
-                  jenkinsInstance:
-                    title: Choose a Jenkins Instance
+                  instance:
+                    title: Jenkins Instance
                     type: string
+                    description: Which server should the reqyest run on?
                     enum:
                       - server1
-                      - server2
-                required: jenkinsInstance
             - if:
                 properties:
                   appID:
@@ -49,40 +46,20 @@ spec:
               then:
                 properties:
                   jenkinsInstance:
-                    title: Choose a Jenkins Instance
+                    title: Jenkins Instance
                     type: string
+                    description: Which server should the reqyest run on?
                     enum:
                       - server2
-                      - server3
-                required: jenkinsInstance
-  - title: Service and Infrastructure Details
-    required:
-      - owner
-      - dependsOn
-    properties:
-      dependsOn:
-        title: What entity does this service depend on?
-        type: string
-        ui:field: EntityPicker
-        ui:options:
-          catalogFilter:
-            - kind: Component
-              spec.type: Service
-      owner:
-        title: Choose an Owner for the Service
-        type: string
-        ui:field: OwnerPicker
-        ui:options:
-          allowedKinds:
-            - Group                  
-      token:
-        title: Harness Token
-        type: string
-        ui:widget: password
-        ui:field: HarnessAuthToken
+                      - server3                  
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
   steps:
     - id: trigger
-      name: Provisioning your Infrastructure
+      name: Requesting resource
       action: trigger:harness-custom-pipeline
       input:
         url: https://app.harness.io/ng/account/6_vVHzo9Qeu9fXvj-AcbCQ/home/orgs/SE_Sandbox/projects/Cassie_Sandbox/pipelines/Dynamic_Form_Inputs/pipeline-studio/?storeType=INLINE
