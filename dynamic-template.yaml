@@ -42,15 +42,13 @@ spec:
                   spec.type: website
             dependencies:
               - appID
-            ui:conditional:
-              - if: "{{ parameters.appID == 'tag2' }}" 
-                then:
-                  enum:
-                    - server2
-              - if: "{{ parameters.appID == 'tag3' }}" 
-                then:
-                  enum:
-                    - server1
+            condition:
+              - appID: tag2
+                enum:
+                  - server2
+              - appID: tag3
+                enum:
+                  - server1
         token:
           title: Harness Token
           type: string
