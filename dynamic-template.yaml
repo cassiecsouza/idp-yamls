@@ -30,25 +30,20 @@ spec:
               catalogFilter:
                 - kind: Component
                   spec.type: website
-        jenkinsInstance:
-            title: Choose a Jenkins Instance
-            type: string
-            description: Jenkins Instance to orchestrate the project onboarding
-            ui:field: EntityFieldPicker
-            ui:displayField: metadata.jenkinsInstance
-            ui:options:
-              catalogFilter:
-                - kind: Component
-                  spec.type: website
             dependencies:
-              - appID
-            condition:
-              - appID: tag2
-                enum:
-                  - server2
-              - appID: tag3
-                enum:
-                  - server1
+              appID:
+                allOf:
+                  - if:
+                      properties:
+                        appID:
+                          const: tag2
+                    then:
+                      properties:
+                        jenkinsInstance:
+                          title: Choose a Jenkins Instance
+                          type: string
+                          enum:
+                            - server2
         token:
           title: Harness Token
           type: string
