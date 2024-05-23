@@ -4,7 +4,7 @@ metadata:
   namespace: default
   name: dynamicuifields
   title: Dynamic UI Fields
-  description: Test out dynamic UI fields form catalog metadata
+  description: Showcase dynamic UI fields using catalog metadata
   tags:
     - dynamic
     - catalogmetadata
