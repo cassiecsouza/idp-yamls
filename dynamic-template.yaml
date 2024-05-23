@@ -28,25 +28,20 @@ spec:
               catalogFilter:
                 - kind: Component
                   spec.type: website
-        jenkinsInstance:
-            title: Choose a Jenkins Instance
-            type: string
-            description: Jenkins Instance to orchestrate the project onboarding
-            ui:field: EntityFieldPicker
-            ui:displayField: metadata.jenkinsInstance
-            ui:options:
-              catalogFilter:
-                - kind: Component
-                  spec.type: website
             dependencies:
-              - appID
-            condition:
-              - appID: tag2
-                enum:
-                  - server2
-              - appID: tag1
-                enum:
-                  - server1
+              appID:
+                allOf:
+                  - if:
+                      properties:
+                        appID:
+                          const: tag2
+                    then:
+                      properties:
+                        jenkinsInstance:
+                          title: Choose a Jenkins Instance
+                          type: string
+                          enum:
+                            - server2
         token:
           title: Harness Token
           type: string
@@ -60,6 +55,7 @@ spec:
         url: https://app.harness.io/ng/account/6_vVHzo9Qeu9fXvj-AcbCQ/home/orgs/SE_Sandbox/projects/Cassie_Sandbox/pipelines/Dynamic_Form_Inputs/pipeline-studio/?storeType=INLINE
         inputset:
           appID: ${{ parameters.appID }}
+          jenkinsInstance: ${{ parameters.jenkinsInstance }}
         apikey: ${{ parameters.token }}
   output:
     links:
