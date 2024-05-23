@@ -10,7 +10,7 @@ metadata:
     - catalogmetadata
 spec:
   owner: cassie.souza@harness.io
-  type: environment
+  type: demo
   parameters:
     - title: Fill in some steps
       properties:
