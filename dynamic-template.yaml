@@ -12,41 +12,74 @@ spec:
   owner: cassie.souza@harness.io
   type: environment
   parameters:
-    - title: Project and Repo Details
-      properties:
-        projectName:
-            title: Input Project Name
-            type: string
-            description: New project to onboard   
-        appID:
-            title: Choose Application ID
-            type: string
-            description: Application ID for this service request
-            ui:field: EntityFieldPicker
-            ui:displayField: metadata.appID
-            ui:options:
-              catalogFilter:
-                - kind: Component
-                  spec.type: website
-            dependencies:
-              appID:
-                allOf:
-                  - if:
-                      properties:
-                        appID:
-                          const: tag2
-                    then:
-                      properties:
-                        jenkinsInstance:
-                          title: Choose a Jenkins Instance
-                          type: string
-                          enum:
-                            - server2
-        token:
-          title: Harness Token
+  - title: Project and Repo Details
+    properties:
+      projectName:
+          title: Input Project Name
           type: string
-          ui:widget: password
-          ui:field: HarnessAuthToken
+          description: New project to onboard   
+      appID:
+          title: Choose Application ID
+          type: string
+          description: Application ID for this service request
+          ui:field: EntityFieldPicker
+          ui:displayField: metadata.appID
+          ui:options:
+            catalogFilter:
+              - kind: Component
+                spec.type: website
+          allOf:
+            - if:
+                properties:
+                  appID:
+                    const: tag1
+              then:
+                properties:
+                  jenkinsInstance:
+                    title: Choose a Jenkins Instance
+                    type: string
+                    enum:
+                      - server1
+                      - server2
+                required: jenkinsInstance
+            - if:
+                properties:
+                  appID:
+                    const: tag2
+              then:
+                properties:
+                  jenkinsInstance:
+                    title: Choose a Jenkins Instance
+                    type: string
+                    enum:
+                      - server2
+                      - server3
+                required: jenkinsInstance
+  - title: Service and Infrastructure Details
+    required:
+      - owner
+      - dependsOn
+    properties:
+      dependsOn:
+        title: What entity does this service depend on?
+        type: string
+        ui:field: EntityPicker
+        ui:options:
+          catalogFilter:
+            - kind: Component
+              spec.type: Service
+      owner:
+        title: Choose an Owner for the Service
+        type: string
+        ui:field: OwnerPicker
+        ui:options:
+          allowedKinds:
+            - Group                  
+      token:
+        title: Harness Token
+        type: string
+        ui:widget: password
+        ui:field: HarnessAuthToken
   steps:
     - id: trigger
       name: Provisioning your Infrastructure
