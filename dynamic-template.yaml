@@ -13,8 +13,6 @@ spec:
   type: environment
   parameters:
     - title: Project and Repo Details
-      required:
-        - owner
       properties:
         projectName:
             title: Input Project Name
