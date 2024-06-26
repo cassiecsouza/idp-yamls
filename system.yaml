@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  namespace: default
+  name: Test
+spec:
+  owner: user:default/cassie.souza
+  domain: default
+  dependsOn:
+    - system:Platform_Demo
